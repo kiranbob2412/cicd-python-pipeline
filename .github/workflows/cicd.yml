@@ -42,3 +42,17 @@ jobs:
 
       - name: Verify container
         run: docker ps
+
+      - name: Collect deployment logs
+        if: always()
+        run: |
+          mkdir -p ci-logs
+          docker logs cicd-python-app > ci-logs/application.log 2>&1 || true
+          docker inspect cicd-python-app > ci-logs/container-inspect.json 2>&1 || true
+
+      - name: Upload deployment logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-logs
+          path: ci-logs/
