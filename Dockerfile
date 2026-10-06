@@ -12,4 +12,4 @@ ENV APP_ENV=production
 
 EXPOSE 8080
 
-CMD ["python", "app/main.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app.main:app"]
