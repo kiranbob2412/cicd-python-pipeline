@@ -11,6 +11,7 @@ docker build -t cicd-python-app:latest .
 
 docker run -d \
   --name cicd-python-app \
+  -e APP_ENV="${APP_ENV:-production}" \
   cicd-python-app:latest
 
 echo "Deployment completed successfully."
